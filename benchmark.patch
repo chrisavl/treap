@@ -1,0 +1,30 @@
+--- keyval_benchmark.erl.1	2012-08-02 13:54:55.000000000 +0200
++++ keyval_benchmark.erl	2013-01-25 17:32:35.000000000 +0100
+@@ -23,7 +23,10 @@
+     print(naive_gb_trees(Reps)),
+     io:format("~nSmart gb_trees:~n"),
+     io:format("Operation\tTotal (µs)\tAverage (µs)~n"),
+-    print(smart_gb_trees(Reps)).
++    print(smart_gb_trees(Reps)),
++    io:format("~ntreap:~n"),
++    io:format("Operation\tTotal (µs)\tAverage (µs)~n"),
++    print(naive_treap(Reps)).
+ 
+ %% formats the benchmark results cleanly.
+ print([]) -> ok;
+@@ -102,6 +105,15 @@
+               fun gb_trees:update/3,
+               fun gb_trees:delete/2).
+ 
++%% treap benchmark
++naive_treap(Reps) ->
++    benchmark(Reps,
++              treap:new(),
++              fun treap:store/3,
++              fun treap:find/2,
++              fun treap:store/3,
++              fun treap:erase/2).
++
+ %% Empty functions used for the 'base_case/1' benchmark. They must do
+ %% nothing interesting.
+ null(_, _) -> ok.
