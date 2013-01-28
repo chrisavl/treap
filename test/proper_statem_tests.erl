@@ -49,7 +49,7 @@ initial_state() ->
     {treap:new(), []}.
 
 
-precondition(S, _) ->
+precondition(_S, _) ->
     true.
 
 
