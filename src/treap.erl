@@ -16,7 +16,7 @@
          to_list/1,
          from_list/1]).
 
--type treap() :: nil | {P :: integer(),
+-type treap() :: nil | {P :: float(),
                         Key :: term(),
                         Value :: term(),
                         Left :: treap(),
