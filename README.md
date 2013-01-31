@@ -1,8 +1,8 @@
 # [Treap](http://en.wikipedia.org/wiki/Treap) data structure for Erlang
 
-This is an implementation of a Treap for Erlang, a data structure for key-value pairs.
+This is an implementation of a Treap for Erlang, a data structure for key-value pairs. It is essentially a balanced binary tree which also maintains the heap property over a randomized priority value for each key.
 
-The treap module lets you split and merge treaps efficiently. It also lets you set the priority of a key in the treap manually, to speed up access to commonly accessed keys. Although in most cases gb\_trees/dict should be faster than the treap module.
+The treap module lets you split and merge treaps efficiently. It also lets you set or update the priority of a key in the treap manually, to speed up access to commonly accessed keys. Although in most cases gb\_trees/dict should be faster than the treap module.
 
 You can benchmark it versus other common data structures by running:
 
