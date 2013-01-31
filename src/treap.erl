@@ -146,8 +146,8 @@ store_1(Key, Value, Prio, {P, K, V, Left, Right}) when Key < K ->
 store_1(Key, Value, Prio, {P, K, V, Left, Right}) when Key > K ->
     maybe_rot_l({P, K, V, Left, store_1(Key, Value, Prio, Right)});
 
-store_1(_, Value, _, {P, Key, _, Left, Right}) ->
-    {P, Key, Value, Left, Right}; %% update
+store_1(_, Value, Prio, {P, Key, _, Left, Right}) ->
+    {max(Prio, P), Key, Value, Left, Right}; %% update
 
 store_1(Key, Value, Prio, nil) ->
     {Prio, Key, Value, nil, nil}. %% insert
