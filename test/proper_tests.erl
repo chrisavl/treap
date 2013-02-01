@@ -76,7 +76,8 @@ prop_split_merge() ->
     ?FORALL({K, T}, with_existing_key(),
                  begin
                     {Left, Right} = treap:split(K, T),
-                    treap:erase(K, T) =:= treap:merge(Left, Right)
+                    is_heap(Left) andalso is_heap(Right) andalso
+                        treap:erase(K, T) =:= treap:merge(Left, Right)
                  end).
 
 
