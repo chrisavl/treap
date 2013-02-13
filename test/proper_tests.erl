@@ -8,10 +8,11 @@
 property_test_() ->
     Props = lists:filter(fun ({F, _}) -> lists:prefix("prop_", atom_to_list(F)) end,
                          ?MODULE:module_info(exports)),
-    Opts = [verbose, {numtests, 1000}],
+    Opts = [verbose, {numtests, 10000}],
     Tests = lists:map(fun ({P, _}) ->
                               {atom_to_list(P),
-                               ?_assert(proper:quickcheck(?MODULE:P(), Opts))}
+                               {timeout, 30,
+                                ?_assert(proper:quickcheck(?MODULE:P(), Opts))}}
                       end, Props),
     
     {foreach,

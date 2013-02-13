@@ -5,8 +5,8 @@
 -include_lib("eunit/include/eunit.hrl").
 
 
-proper_test() ->
-    ?assert(proper:quickcheck(?MODULE:prop_treap())).
+proper_test_() ->
+    {timeout, 60, ?_assert(proper:quickcheck(?MODULE:prop_treap(), 10000))}.
 
 
 prop_treap() ->
