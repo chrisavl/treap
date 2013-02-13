@@ -1,7 +1,5 @@
 -module(treap).
 
--define(RAND_MAX, 1.0).
-
 -export([new/0,
          find/2,
          fetch/2,
@@ -62,7 +60,7 @@ store(Key, Value, Treap) ->
 
 
 -spec store(term(), term(), float(), treap()) -> treap().
-store(Key, Value, Prio, Treap) when Prio >= 0.0 andalso Prio =< 1.0 ->
+store(Key, Value, Prio, Treap) ->
     store_1(Key, Value, Prio, erase(Key, Treap)).
 
 
@@ -75,14 +73,18 @@ is_key(Key, Treap) ->
 
 
 -spec merge(treap(), treap()) -> treap().
-merge(Left, Right) ->
+merge(nil, nil) -> nil;
+merge(nil, Right) -> Right;
+merge(Left, nil) -> Left;
+merge({LeftP, _, _, _, _} = Left, {RightP, _, _, _, _} = Right) ->
     %% NOTE: assumes max_key(Left) < min_key(Right), i.e the result of split/2
-    erase_root({?RAND_MAX + 1, root, undefined, Left, Right}).
+    erase_root({max(LeftP, RightP) + 1, root, undefined, Left, Right}).
     
 
 -spec split(term(), treap()) -> {treap(), treap()}.
-split(Key, Treap) ->
-    {_, Key, undefined, Left, Right} = store_1(Key, undefined, ?RAND_MAX + 1,
+split(_Key, nil) -> nil;
+split(Key, {P, _, _, _, _} = Treap) ->
+    {_, Key, undefined, Left, Right} = store_1(Key, undefined, P + 1,
                                                erase(Key, Treap)),
     {Left, Right}.
 

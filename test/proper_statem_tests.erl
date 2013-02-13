@@ -41,7 +41,7 @@ command(S) ->
          oneof([{call, treap, find, [K, T]},
                 {call, treap, erase, [K, T]},
                 {call, treap, store, [K, V, T]},
-                {call, treap, store, [K, V, float(0.0, 1.0), T]},
+                {call, treap, store, [K, V, float(), T]},
                 {call, treap, is_key, [K, T]}
                ])).
 
