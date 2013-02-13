@@ -73,19 +73,16 @@ is_key(Key, Treap) ->
 
 
 -spec merge(treap(), treap()) -> treap().
-merge(nil, nil) -> nil;
-merge(nil, Right) -> Right;
-merge(Left, nil) -> Left;
-merge({LeftP, _, _, _, _} = Left, {RightP, _, _, _, _} = Right) ->
+merge(Left, Right) ->
     %% NOTE: assumes max_key(Left) < min_key(Right), i.e the result of split/2
-    erase_root({max(LeftP, RightP) + 1, root, undefined, Left, Right}).
+    erase_root({infinity, root, undefined, Left, Right}).
     
 
 -spec split(term(), treap()) -> {treap(), treap()}.
 split(_Key, nil) -> nil;
-split(Key, {P, _, _, _, _} = Treap) ->
-    {_, Key, undefined, Left, Right} = store_1(Key, undefined, P + 1,
-                                               erase(Key, Treap)),
+split(Key, Treap) ->
+    {infinity, Key, undefined, Left, Right} = store_1(Key, undefined, infinity,
+                                                      erase(Key, Treap)),
     {Left, Right}.
 
 
